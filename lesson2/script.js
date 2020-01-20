@@ -33,8 +33,8 @@ for (let y = 0; y < rows; y++) {
 var grassArr = [];
 var grassEaterArr = [];
 var gishatichArr = [];
-var VorsordArr = [];
-var MardaspanAryucArr = [];
+var vorsordArr = [];
+var mardakerAryucArr = [];
 var side = 10;
 
 function setup() {
@@ -63,11 +63,11 @@ function setup() {
             }
             else if (matrix[y][x] == 4) {
                 var vorsord = new Vorsord(x, y, 4);
-                VorsordArr.push(vorsord);
+                vorsordArr.push(vorsord);
             }
             else if (matrix[y][x] == 5) {
-                var mardaspanAryuc = new MardaspanAryuc(x, y, 5);
-                MardaspanAryucArr.push(mardaspanAryuc);
+                var mardakerAryuc = new MardakerAryuc(x, y, 5);
+                mardakerAryucArr.push(mardakerAryuc);
             }
         }
     }
@@ -125,19 +125,19 @@ function draw() {
         gishatichArr[i].mul();
         gishatichArr[i].die();
     }
-    for (var i in VorsordArr) {
-        VorsordArr[i].eat();
-        VorsordArr[i].move();
-        VorsordArr[i].moveGrass()
-        VorsordArr[i].mul();
-        VorsordArr[i].die();
+    for (var i in vorsordArr) {
+        vorsordArr[i].eat();
+        vorsordArr[i].move();
+        vorsordArr[i].moveGrass()
+        vorsordArr[i].mul();
+        vorsordArr[i].die();
     }
-    for (var i in MardaspanAryucArr) {
-        MardaspanAryucArr[i].eatVorsord();
-        MardaspanAryucArr[i].eatGrassEater();
-        MardaspanAryucArr[i].move();
-        MardaspanAryucArr[i].moveGrass();
-        MardaspanAryucArr[i].mul();
-        MardaspanAryucArr[i].die();
+    for (var i in mardakerAryucArr) {
+        mardakerAryucArr[i].eatVorsord();
+        mardakerAryucArr[i].eatGrassEater();
+        mardakerAryucArr[i].move();
+        mardakerAryucArr[i].moveGrass();
+        mardakerAryucArr[i].mul();
+        mardakerAryucArr[i].die();
     }
 }
