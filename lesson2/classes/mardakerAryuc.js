@@ -124,8 +124,8 @@ class MardakerAryuc extends LivingCreature {
         var newCell = random(this.chooseCell(0));
 
         if (this.energy >= 1020 && newCell) {
-            var newMardaspanAryuc = new MardaspanAryuc(newCell[0], newCell[1], this.index);
-            MardaspanAryucArr.push(newMardaspanAryuc);
+            var newMardakerAryuc = new MardakerAryuc(newCell[0], newCell[1], this.index);
+            mardakerAryucArr.push(newMardakerAryuc);
             matrix[newCell[1]][newCell[0]] = 5;
             this.energy = 1000;
         }
@@ -133,9 +133,9 @@ class MardakerAryuc extends LivingCreature {
     die() {
         if (this.energy <= 0) {
             matrix[this.y][this.x] = 0;
-            for (var i in MardaspanAryucArr) {
-                if (this.x == MardaspanAryucArr[i].x && this.y == MardaspanAryucArr[i].y) {
-                    MardaspanAryucArr.splice(i, 1);
+            for (var i in mardakerAryucArr) {
+                if (this.x == mardakerAryucArr[i].x && this.y == mardakerAryucArr[i].y) {
+                    mardakerAryucArr.splice(i, 1);
                     break;
                 }
             }

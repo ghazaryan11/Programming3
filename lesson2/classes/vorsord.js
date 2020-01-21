@@ -140,7 +140,7 @@ class Vorsord extends LivingCreature {
 
         if (this.energy >= 501 && newCell) {
             var newVorsord = new Vorsord(newCell[0], newCell[1], this.index);
-            VorsordArr.push(newVorsord);
+            vorsordArr.push(newVorsord);
             matrix[newCell[1]][newCell[0]] = 4;
             this.energy = 500;
         }
@@ -148,9 +148,9 @@ class Vorsord extends LivingCreature {
     die() {
         if (this.energy <= 0) {
             matrix[this.y][this.x] = 0;
-            for (var i in VorsordArr) {
-                if (this.x == VorsordArr[i].x && this.y == VorsordArr[i].y) {
-                    VorsordArr.splice(i, 1);
+            for (var i in vorsordArr) {
+                if (this.x == vorsordArr[i].x && this.y == vorsordArr[i].y) {
+                    vorsordArr.splice(i, 1);
                     break;
                 }
             }
