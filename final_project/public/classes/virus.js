@@ -1,53 +1,22 @@
 let LivingCreature = require('./livingCreature')
 let random = require('./random')
-module.exports = class MardakerAryuc extends LivingCreature {
+module.exports = class Virus extends LivingCreature {
     constructor(x, y, index) {
         super(x, y, index)
-        this.energy = 1000;
+        this.energy = 2000;
     }
     //vorpes method
     getNewCoordinates() {
-        if (weather !== "dzmer") {
-            this.directions = [
-                [this.x - 2, this.y - 2],
-                [this.x - 1, this.y - 2],
-                [this.x, this.y - 2],
-                [this.x + 1, this.y - 2],
-                [this.x + 2, this.y - 2],
-                [this.x - 2, this.y - 1],
-                [this.x - 1, this.y - 1],
-                [this.x, this.y - 1],
-                [this.x + 1, this.y - 1],
-                [this.x + 2, this.y - 1],
-                [this.x - 2, this.y],
-                [this.x - 1, this.y],
-                [this.x + 1, this.y],
-                [this.x + 2, this.y],
-                [this.x - 2, this.y + 1],
-                [this.x - 1, this.y + 1],
-                [this.x, this.y + 1],
-                [this.x + 1, this.y + 1],
-                [this.x + 2, this.y + 1],
-                [this.x - 2, this.y + 2],
-                [this.x - 1, this.y + 2],
-                [this.x, this.y + 2],
-                [this.x + 1, this.y + 2],
-                [this.x + 2, this.y + 2]
-            ];
-        }
-        else {
-            this.directions = [
-                [this.x - 1, this.y - 1],
-                [this.x, this.y - 1],
-                [this.x + 1, this.y - 1],
-                [this.x - 1, this.y],
-                [this.x + 1, this.y],
-                [this.x - 1, this.y + 1],
-                [this.x, this.y + 1],
-                [this.x + 1, this.y + 1]
-            ];
-        }
-
+        this.directions = [
+            [this.x - 1, this.y - 1],
+            [this.x, this.y - 1],
+            [this.x + 1, this.y - 1],
+            [this.x - 1, this.y],
+            [this.x + 1, this.y],
+            [this.x - 1, this.y + 1],
+            [this.x, this.y + 1],
+            [this.x + 1, this.y + 1]
+        ];
     }
 
     chooseCell(character) {
@@ -129,10 +98,9 @@ module.exports = class MardakerAryuc extends LivingCreature {
 
         }
     }
-    eatVorsord() {
+    eatGishatich() {
 
-
-        let emptyCells = this.chooseCell(4)
+        let emptyCells = this.chooseCell(3)
         let newCell = random(emptyCells)
 
         if (newCell) {
@@ -142,9 +110,9 @@ module.exports = class MardakerAryuc extends LivingCreature {
             matrix[this.y][this.x] = 0;
             matrix[newY][newX] = this.index;
 
-            for (let i in vorsordArr) {
-                if (newX == vorsordArr[i].x && newY == vorsordArr[i].y) {
-                    vorsordArr.splice(i, 1);
+            for (let i in gishatichArr) {
+                if (newX == gishatichArr[i].x && newY == gishatichArr[i].y) {
+                    gishatichArr.splice(i, 1);
                     break;
                 }
             }
@@ -153,6 +121,61 @@ module.exports = class MardakerAryuc extends LivingCreature {
             this.y = newY;
             this.x = newX;
             this.energy += 2;
+
+        }
+    }
+    eatMardakerAryuc() {
+
+
+        let emptyCells = this.chooseCell(5)
+        let newCell = random(emptyCells)
+
+        if (newCell) {
+            let newX = newCell[0];
+            let newY = newCell[1];
+
+            matrix[this.y][this.x] = 0;
+            matrix[newY][newX] = this.index;
+
+            for (let i in mardakerAryucArr) {
+                if (newX == mardakerAryucArr[i].x && newY == mardakerAryucArr[i].y) {
+                    mardakerAryucArr.splice(i, 1);
+                    break;
+                }
+            }
+
+
+            this.y = newY;
+            this.x = newX;
+            this.energy += 2;
+
+        }
+    }
+    eatBigGrassEater() {
+
+
+        let emptyCells = this.chooseCell(6)
+        let newCell = random(emptyCells)
+
+        if (newCell) {
+            let newX = newCell[0];
+            let newY = newCell[1];
+
+            matrix[this.y][this.x] = 0;
+            matrix[newY][newX] = this.index;
+
+            for (let i in bigGrassEaterArr) {
+                if (newX == bigGrassEaterArr[i].x && newY == bigGrassEaterArr[i].y) {
+                    bigGrassEaterArr.splice(i, 1);
+                    break;
+                }
+            }
+
+
+            this.y = newY;
+            this.x = newX;
+            this.energy += 2;
+
         }
     }
     mul() {
@@ -160,19 +183,19 @@ module.exports = class MardakerAryuc extends LivingCreature {
         let emptyCells = this.chooseCell(0)
         let newCell = random(emptyCells)
 
-        if (this.energy >= 1020 && newCell) {
-            let newMardakerAryuc = new MardakerAryuc(newCell[0], newCell[1], this.index);
-            mardakerAryucArr.push(newMardakerAryuc);
-            matrix[newCell[1]][newCell[0]] = 5;
-            this.energy = 1000;
+        if (this.energy >= 2050 && newCell) {
+            let newVirus = new Virus(newCell[0], newCell[1], this.index);
+            virusArr.push(newVirus);
+            matrix[newCell[1]][newCell[0]] = 7;
+            this.energy = 2000;
         }
     }
     die() {
         if (this.energy <= 0) {
             matrix[this.y][this.x] = 0;
-            for (let i in mardakerAryucArr) {
-                if (this.x == mardakerAryucArr[i].x && this.y == mardakerAryucArr[i].y) {
-                    mardakerAryucArr.splice(i, 1);
+            for (let i in virusArr) {
+                if (this.x == virusArr[i].x && this.y == virusArr[i].y) {
+                    virusArr.splice(i, 1);
                     break;
                 }
             }

@@ -3,20 +3,27 @@ const app = express()
 const server = require('http').createServer(app)
 const io = require('socket.io')(server)
 const fs = require('fs')
-matrix = createMatrix(50, 50);
+
 
 var Grass = require('./public/classes/grass')
-var GrassEater = require('./public/classes/grass')
-var Gishatich = require('./public/classes/grass')
-var Vorsord = require('./public/classes/grass')
-var MardakerAryuc = require('./public/classes/grass')
+var GrassEater = require('./public/classes/grassEater')
+var Gishatich = require('./public/classes/gishatich')
+var Vorsord = require('./public/classes/vorsord')
+var MardakerAryuc = require('./public/classes/mardakerAryuc')
+var BigGrassEater = require('./public/classes/bigGrassEater')
+var Virus = require('./public/classes/virus')
 
 grassArr = [];
 grassEaterArr = [];
 gishatichArr = [];
 vorsordArr = [];
 mardakerAryucArr = [];
+bigGrassEaterArr = [];
+virusArr = [];
 
+matrix = createMatrix(50, 80);
+
+weather = "garun"
 
 function createMatrix(rows, columns) {
     var matrix = [];
@@ -24,28 +31,66 @@ function createMatrix(rows, columns) {
         matrix[y] = [];
         for (let x = 0; x < columns; x++) {
             let a = Math.floor(Math.random() * 100);
-            if (a >= 0 && a < 0) {
+            if (a >= 0 && a < 40) {
                 matrix[y][x] = 0;
             }
-            if (a >= 0 && a < 90) {
+            else if (a >= 40 && a < 90) {
                 matrix[y][x] = 1;
             }
             else if (a >= 90 && a < 95) {
                 matrix[y][x] = 2;
             }
-            else if (a >= 95 && a < 97) {
+            else if (a >= 95 && a < 96) {
                 matrix[y][x] = 3;
             }
-            else if (a >= 97 && a < 99) {
+            else if (a >= 96 && a < 97) {
                 matrix[y][x] = 4;
             }
-            else if (a >= 99 && a < 100) {
+            else if (a >= 97 && a < 98) {
                 matrix[y][x] = 5;
+            }
+            else if (a >= 98 && a < 99) {
+                matrix[y][x] = 6;
+            }
+            else if (a >= 99 && a < 100) {
+                matrix[y][x] = 7;
             }
         }
     }
     return matrix;
 }
+
+function changeWeather() {
+    if (weather == "garun") {
+        weather = "amar"
+    }
+    else if (weather == "dzmer") {
+        weather = "garun"
+    }
+    else if (weather == "ashun") {
+        weather = "dzmer"
+    }
+    else if (weather == "amar") {
+        weather = "ashun"
+    }
+
+    return weather
+}
+
+setInterval(changeWeather, 7000)
+
+
+console.log(weather)
+
+app.use(express.static("public"));
+
+app.get("/", function (req, res) {
+    res.redirect('index.html')
+});
+
+server.listen(3000, function () {
+    console.log("Example is running on port 3000");
+});
 
 
 
@@ -74,59 +119,99 @@ function createCharacter() {
                 var mardakerAryuc = new MardakerAryuc(x, y, 5);
                 mardakerAryucArr.push(mardakerAryuc);
             }
+            else if (matrix[y][x] == 6) {
+                var bigGrassEater = new BigGrassEater(x, y, 6);
+                bigGrassEaterArr.push(bigGrassEater);
+            }
+            else if (matrix[y][x] == 7) {
+                var newVirus = new Virus(x, y, 7);
+                virusArr.push(newVirus);
+            }
         }
     }
 }
 createCharacter()
 
 function characterAction() {
-    
-    for (var i in grassArr) {
-        grassArr[i].mul();
+    if (grassArr[0] !== undefined) {
+        for (var i in grassArr) {
+            grassArr[i].mul();
+        }
     }
-    for (var i in grassEaterArr) {
-        grassEaterArr[i].eat();
-        grassEaterArr[i].move();
-        grassEaterArr[i].mul();
-        grassEaterArr[i].die();
+    if (grassEaterArr[0] !== undefined) {
+        for (var i in grassEaterArr) {
+            grassEaterArr[i].eat();
+            grassEaterArr[i].move();
+            grassEaterArr[i].mul();
+            grassEaterArr[i].die();
+        }
     }
-    for (var i in gishatichArr) {
-        gishatichArr[i].eat();
-        gishatichArr[i].move();
-        gishatichArr[i].moveGrass();
-        gishatichArr[i].mul();
-        gishatichArr[i].die();
+    if (bigGrassEaterArr[0] !== undefined) {
+        for (var i in bigGrassEaterArr) {
+            bigGrassEaterArr[i].eat();
+            bigGrassEaterArr[i].move();
+            bigGrassEaterArr[i].moveGrass();
+            bigGrassEaterArr[i].mul();
+            bigGrassEaterArr[i].die();
+        }
     }
-    for (var i in vorsordArr) {
-        vorsordArr[i].eat();
-        vorsordArr[i].move();
-        vorsordArr[i].moveGrass()
-        vorsordArr[i].mul();
-        vorsordArr[i].die();
+    if (gishatichArr[0] !== undefined) {
+        for (var i in gishatichArr) {
+            gishatichArr[i].eat();
+            gishatichArr[i].move();
+            gishatichArr[i].moveGrass();
+            gishatichArr[i].mul();
+            gishatichArr[i].die();
+        }
     }
-    for (var i in mardakerAryucArr) {
-        mardakerAryucArr[i].eatVorsord();
-        mardakerAryucArr[i].eatGrassEater();
-        mardakerAryucArr[i].move();
-        mardakerAryucArr[i].moveGrass();
-        mardakerAryucArr[i].mul();
-        mardakerAryucArr[i].die();
+    if (vorsordArr[0] !== undefined) {
+        for (var i in vorsordArr) {
+            if (weather == "dzmer") {
+                vorsordArr[i].eatAryuc();
+                vorsordArr[i].eat();
+            }
+            vorsordArr[i].move();
+            vorsordArr[i].moveGrass()
+            vorsordArr[i].mul();
+            vorsordArr[i].die();
+        }
     }
-    io.sockets.emit('matrix', matrix)
+    if (mardakerAryucArr[0] !== undefined) {
+        for (var i in mardakerAryucArr) {
+            if (weather == "amar") {
+                mardakerAryucArr[i].eatVorsord();
+            }
+            mardakerAryucArr[i].eatGrassEater();
+            mardakerAryucArr[i].move();
+            mardakerAryucArr[i].moveGrass();
+            mardakerAryucArr[i].mul();
+            mardakerAryucArr[i].die();
+        }
+    }
+    if (virusArr[0] !== undefined) {
+        for (var i in virusArr) {
+            if (weather == "amar") {
+                virusArr[i].eatMardakerAryuc();
+                virusArr[i].eatGishatich();
+            }
+            if (weather == "ashun") {
+                virusArr[i].eatBigGrassEater();
+                virusArr[i].eatGrassEater();
+            }
+            virusArr[i].move();
+            virusArr[i].moveGrass();
+            virusArr[i].mul();
+            virusArr[i].die();
+        }
+    }
+    data = {
+        weather: weather,
+        matrix: matrix
+    }
+    io.sockets.emit('data', data)
 }
 
-setInterval(characterAction, 1000)
+setInterval(characterAction, 300)
 
-io.on('connection', function (socket) {
 
-})
 
-app.use(express.static("public"));
-
-app.get("/", function (req, res) {
-    res.redirect('index.html')
-});
-
-server.listen(3000, function () {
-    console.log("Example is running on port 3000");
-});
