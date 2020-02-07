@@ -77,16 +77,16 @@ module.exports = class GrassEater extends LivingCreature {
         let emptyCells = this.chooseCell(0)
         let newCell = random(emptyCells)
         if (weather == "dzmer") {
-            mulEnergy = 20
+            mulEnergy = 17
         }
         if (weather == "amar") {
-            mulEnergy = 9
+            mulEnergy = 7
         }
         if (weather == "garun") {
-            mulEnergy = 11
+            mulEnergy = 9
         }
         if (weather == "ashun") {
-            mulEnergy = 13
+            mulEnergy = 11
         }
 
         if (this.energy >= mulEnergy && newCell) {
@@ -94,6 +94,7 @@ module.exports = class GrassEater extends LivingCreature {
             grassEaterArr.push(newGrassEater);
             matrix[newCell[1]][newCell[0]] = 2;
             this.energy = 5;
+            grassEaterMul++
         }
     }
     die() {

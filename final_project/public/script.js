@@ -15,6 +15,19 @@ function setup() {
         background('#acacac');
 
         document.getElementById('exanak').innerHTML = weather
+        document.getElementById('grass').innerHTML = data.grassMul
+        document.getElementById('grassEater').innerHTML = data.grassEaterMul
+        document.getElementById('gishatich').innerHTML = data.gishatichMul
+        document.getElementById('vorsord').innerHTML = data.vorsordMul
+        document.getElementById('aryuc').innerHTML = data.aryucMul
+        document.getElementById('bigGrassEater').innerHTML = data.bigGrassEaterMul
+        document.getElementById('virus').innerHTML = "Kill - " + data.virusKill
+        
+        function mousePressed() {
+            ellipse(mouseX, mouseY, 5, 5);
+            // prevent default
+            return false;
+          }
 
         for (var y = 0; y < matrix.length; y++) {
             for (var x = 0; x < matrix[y].length; x++) {
@@ -50,7 +63,7 @@ function setup() {
                     rect(x * side, y * side, side, side);
                 }
                 else if (matrix[y][x] == 6) {
-                    fill("grey");
+                    fill("#800000");
                     rect(x * side, y * side, side, side);
                 }
                 else if (matrix[y][x] == 7) {

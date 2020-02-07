@@ -152,7 +152,7 @@ module.exports = class MardakerAryuc extends LivingCreature {
 
             this.y = newY;
             this.x = newX;
-            this.energy += 2;
+            this.energy += 300;
         }
     }
     mul() {
@@ -165,6 +165,7 @@ module.exports = class MardakerAryuc extends LivingCreature {
             mardakerAryucArr.push(newMardakerAryuc);
             matrix[newCell[1]][newCell[0]] = 5;
             this.energy = 1000;
+            aryucMul++
         }
     }
     die() {

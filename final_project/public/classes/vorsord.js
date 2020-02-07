@@ -202,6 +202,7 @@ module.exports = class Vorsord extends LivingCreature {
             vorsordArr.push(newVorsord);
             matrix[newCell[1]][newCell[0]] = 4;
             this.energy = 500;
+            vorsordMul++
         }
     }
     die() {

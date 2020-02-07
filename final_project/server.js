@@ -21,6 +21,14 @@ mardakerAryucArr = [];
 bigGrassEaterArr = [];
 virusArr = [];
 
+grassMul = 0
+grassEaterMul = 0
+gishatichMul = 0
+vorsordMul = 0
+aryucMul = 0
+bigGrassEaterMul = 0
+virusKill = 0
+
 matrix = createMatrix(50, 80);
 
 weather = "garun"
@@ -150,7 +158,6 @@ function characterAction() {
         for (var i in bigGrassEaterArr) {
             bigGrassEaterArr[i].eat();
             bigGrassEaterArr[i].move();
-            bigGrassEaterArr[i].moveGrass();
             bigGrassEaterArr[i].mul();
             bigGrassEaterArr[i].die();
         }
@@ -206,7 +213,14 @@ function characterAction() {
     }
     data = {
         weather: weather,
-        matrix: matrix
+        matrix: matrix,
+        grassMul: grassMul,
+        grassEaterMul: grassEaterMul,
+        gishatichMul: gishatichMul,
+        vorsordMul: vorsordMul,
+        aryucMul: aryucMul,
+        bigGrassEaterMul: bigGrassEaterMul,
+        virusKill: virusKill
     }
     io.sockets.emit('data', data)
 }

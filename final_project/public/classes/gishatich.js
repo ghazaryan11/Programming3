@@ -125,7 +125,7 @@ module.exports = class Gishatich extends LivingCreature {
 
             this.y = newY;
             this.x = newX;
-            this.energy += 2;
+            this.energy += 3;
 
         }
     }
@@ -135,13 +135,13 @@ module.exports = class Gishatich extends LivingCreature {
         let newCell = random(emptyCells)
 
         if (weather == "dzmer") {
-            mulEnergy = 304
+            mulEnergy = 305
         }
         if (weather == "amar") {
-            mulEnergy = 301
+            mulEnergy = 306
         }
         if (weather == "garun" || weather == "ashun") {
-            mulEnergy = 302
+            mulEnergy = 303
         }
 
         if (this.energy >= mulEnergy && newCell) {
@@ -149,6 +149,7 @@ module.exports = class Gishatich extends LivingCreature {
             gishatichArr.push(newGishatich);
             matrix[newCell[1]][newCell[0]] = 3;
             this.energy = 300;
+            gishatichMul++
         }
     }
     die() {

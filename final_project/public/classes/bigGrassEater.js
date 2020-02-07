@@ -75,32 +75,6 @@ module.exports = class BigGrassEater extends LivingCreature {
         }
 
     }
-    moveGrass() {
-
-
-        let emptyCells = this.chooseCell(1)
-        let newCell = random(emptyCells)
-
-        if (newCell) {
-            let newX = newCell[0];
-            let newY = newCell[1];
-
-            matrix[this.y][this.x] = 0;
-            matrix[newY][newX] = this.index;
-
-            for (let i in grassArr) {
-                if (newX == grassArr[i].x && newY == grassArr[i].y) {
-                    grassArr.splice(i, 1);
-                    break;
-                }
-            }
-
-
-            this.y = newY;
-            this.x = newX;
-            this.energy--;
-        }
-    }
     eat() {
 
 
@@ -129,15 +103,15 @@ module.exports = class BigGrassEater extends LivingCreature {
         }
     }
     mul() {
-
         let emptyCells = this.chooseCell(0)
         let newCell = random(emptyCells)
 
-        if (this.energy >= 1250 && newCell) {
+        if (this.energy >= 1180 && newCell) {
             var newBigGrassEater = new BigGrassEater(newCell[0], newCell[1], this.index);
             bigGrassEaterArr.push(newBigGrassEater);
             matrix[newCell[1]][newCell[0]] = 6;
             this.energy = 1100;
+            bigGrassEaterMul++
         }
     }
     die() {

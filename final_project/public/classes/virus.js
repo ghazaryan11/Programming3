@@ -95,7 +95,7 @@ module.exports = class Virus extends LivingCreature {
             this.y = newY;
             this.x = newX;
             this.energy += 2;
-
+            virusKill++
         }
     }
     eatGishatich() {
@@ -121,7 +121,7 @@ module.exports = class Virus extends LivingCreature {
             this.y = newY;
             this.x = newX;
             this.energy += 2;
-
+            virusKill++
         }
     }
     eatMardakerAryuc() {
@@ -148,7 +148,7 @@ module.exports = class Virus extends LivingCreature {
             this.y = newY;
             this.x = newX;
             this.energy += 2;
-
+            virusKill++
         }
     }
     eatBigGrassEater() {
@@ -175,7 +175,7 @@ module.exports = class Virus extends LivingCreature {
             this.y = newY;
             this.x = newX;
             this.energy += 2;
-
+            virusKill++
         }
     }
     mul() {
@@ -188,6 +188,7 @@ module.exports = class Virus extends LivingCreature {
             virusArr.push(newVirus);
             matrix[newCell[1]][newCell[0]] = 7;
             this.energy = 2000;
+            
         }
     }
     die() {
