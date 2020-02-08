@@ -12,6 +12,7 @@ var Vorsord = require('./public/classes/vorsord')
 var MardakerAryuc = require('./public/classes/mardakerAryuc')
 var BigGrassEater = require('./public/classes/bigGrassEater')
 var Virus = require('./public/classes/virus')
+var AntiVirus = require('./public/antivitusEvent')
 
 grassArr = [];
 grassEaterArr = [];
@@ -222,8 +223,27 @@ function characterAction() {
         bigGrassEaterMul: bigGrassEaterMul,
         virusKill: virusKill
     }
+    cnvel = {
+        'grass': grassMul,
+        'grassEater' : grassEaterMul,
+        'gishatich': gishatichMul,
+        'vorsord': vorsordMul,
+        'aryuc': aryucMul,
+        'bigGrassEater': bigGrassEaterMul,
+        'virus': virusKill
+    }
     io.sockets.emit('data', data)
+    fs.writeFileSync('cnvel.json', JSON.stringify(cnvel), 'utf8')
 }
+
+io.on("connection", function (socket) {
+    socket.on("event", function (coordinates) {
+        var antiVirus = new AntiVirus(coordinates.x, coordinates.y);
+        antiVirus.eat()
+    })
+})
+
+
 
 setInterval(characterAction, 300)
 

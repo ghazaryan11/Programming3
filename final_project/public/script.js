@@ -1,6 +1,7 @@
-function setup() {
 
+function setup() {
     var socket = io();
+
     var side = 10;
     var matrix = [];
 
@@ -22,12 +23,8 @@ function setup() {
         document.getElementById('aryuc').innerHTML = data.aryucMul
         document.getElementById('bigGrassEater').innerHTML = data.bigGrassEaterMul
         document.getElementById('virus').innerHTML = "Kill - " + data.virusKill
-        
-        function mousePressed() {
-            ellipse(mouseX, mouseY, 5, 5);
-            // prevent default
-            return false;
-          }
+
+
 
         for (var y = 0; y < matrix.length; y++) {
             for (var x = 0; x < matrix[y].length; x++) {
@@ -82,7 +79,16 @@ function setup() {
 
 }
 
-
+function mousePressed() {
+    var socket = io();
+    data = {
+        x: Math.floor(mouseX/10),
+        y: Math.floor(mouseY/10)
+    }
+    socket.emit("event", data)
+    return false;
+    
+}
 
 
 
